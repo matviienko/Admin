@@ -5,7 +5,8 @@
 module.exports = function (grunt) {
     // Find all of the task which start with `grunt-` and load them, rather than explicitly declaring them all
     require('matchdep').filterDev(['grunt-*', '!grunt-cli']).forEach(grunt.loadNpmTasks);
-
+    grunt.loadNpmTasks('grunt-shell');
+    
     grunt.initConfig({
         clean: {
             built: {
@@ -27,7 +28,7 @@ module.exports = function (grunt) {
         },
 
         shell: {
-            'npm-install': {
+            npminstall: {
                 command: 'yarn install'
             },
 
@@ -63,8 +64,12 @@ module.exports = function (grunt) {
             }
         }
     });
-
+    
     grunt.registerTask('init', 'Install the client dependencies',
-        ['shell:npm-install']
+        ['shell:npminstall']
+    );
+
+    grunt.registerTask('shell:', 'Install the client dependencies',
+        ['shell:npminstall']
     );
 };
